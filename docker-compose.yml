@@ -1,0 +1,6 @@
+version: "2"
+services:
+  server:
+    image: "zhangli2946/echo:develop"
+    ports:
+      - 8080:80/udp

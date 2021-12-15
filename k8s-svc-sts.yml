@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: echo-service
+  labels:
+    app: echo
+spec:
+  serviceName: "echo"
+  replicas: 3
+  selector:
+    matchLabels:
+      app: echo
+  template:
+    metadata:
+      labels:
+        app: echo
+    spec:
+      containers:
+        - name: echo
+          image: zhangli2946/echo:develop
+          ports:
+            - containerPort: 80
+              name: udp
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-service
+spec:
+  selector:
+    app: echo
+  type: NodePort
+  ports:
+    - protocol: UDP
+      port: 80
+      targetPort: 80
